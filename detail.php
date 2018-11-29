@@ -18,15 +18,49 @@ $product = $detail_class -> getProductById();
     <div class="container">
       <div class="row">
         <div class="col">
-          <h1><?php echo $product[0]['name']; ?></h1>
+          <h1 class="text-capitalize"><?php echo $product['name']; ?></h1>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
-          
+          <?php 
+          if( isset($product['images']) ){
+            //if there are more than 1 image, create carousel
+            if( count($product['images'] > 1 ) ){
+              echo "<div id=\"detail-carousel\" class=\"carousel slide border\" data-ride=\"carousel\">";
+              echo "<div class=\"carousel-inner\">";
+                $counter = 0;
+                foreach( $product['images'] as $image ){
+                  $active = $counter == 0 ? 'active' : '';
+                  echo "<div class=\"carousel-item $active\">";
+                  echo "
+                  <img src=\"images/products/products/$image\" class=\"img-fluid\">";
+                  echo "</div>";
+                  $counter++;
+                }
+              echo "</div>";
+              //print out the carousel indicators
+              echo "<ol class=\"carousel-indicators\">";
+              $counter = 0;
+              foreach( $product['images'] as $image ){
+                $active = $counter == 0 ? 'active' : '';
+                echo "<li data-target=\"#detail-carousel\" data-slide-to=\"$counter\" style=\"height:30px;width:40px;overflow:hidden;background-image:url('images/products/products/$image');background-size:cover;border:solid white thin;\"></li>";
+                $counter++;
+              }
+              echo "</ol>";
+              echo "</div>";
+            }
+            else{
+              $image = $product['images'];
+              echo "<img src=\"images/products/products/$image\" class=\"img-fluid\">";
+            }
+            
+          }
+          ?>
         </div>
         <div class="col-md-6">
-          <?php ?>
+          <h4 class="price"><?php echo $product['price']; ?></h4>
+          <div class="description"><?php echo $product['description']; ?></div>
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ class ProductDetail extends Product{
   public $product = array();
   public function __construct(){
     parent::__construct();
-    $product_id = $_GET['id'];
+    $this -> product_id = $_GET['id'];
   }
   public function getProductById(){
     if( isset($this -> product_id) == false ){
@@ -27,13 +27,25 @@ class ProductDetail extends Product{
       $statement = $this -> connection -> prepare($query);
       $statement -> bind_param( 'i' , $this -> product_id );
       if( $statement -> execute() ){
+        $tmp_array = array();
         $result = $statement -> get_result();
         while( $row = $result -> fetch_assoc() ){
-          array_push( $this -> product, $row );
+          array_push( $tmp_array, $row );
         }
+        $this -> product['name'] = $tmp_array[0]['name'];
+        $this -> product['price'] = $tmp_array[0]['price'];
+        $this -> product['description'] = $tmp_array[0]['description'];
+        
+        $img_array = array();
+        foreach( $tmp_array as $product ){
+          array_push( $img_array, $product['image_file_name'] );
+        }
+        $this -> product['images'] = $img_array;
+        
+        return $this -> product;
       }
       
-      return $this -> product;
+      
     }
   }
 }
