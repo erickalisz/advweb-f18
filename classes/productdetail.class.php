@@ -32,14 +32,16 @@ class ProductDetail extends Product{
         while( $row = $result -> fetch_assoc() ){
           array_push( $tmp_array, $row );
         }
+        //add the rows from the first row (row[0]) to the product array
         $this -> product['name'] = $tmp_array[0]['name'];
         $this -> product['price'] = $tmp_array[0]['price'];
         $this -> product['description'] = $tmp_array[0]['description'];
-        
+        //add images to an array
         $img_array = array();
         foreach( $tmp_array as $product ){
           array_push( $img_array, $product['image_file_name'] );
         }
+        //add the images array to the product array as 'images'
         $this -> product['images'] = $img_array;
         
         return $this -> product;

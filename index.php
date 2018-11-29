@@ -28,7 +28,7 @@ $products = $product_class -> getProducts();
             echo "<div class=\"col-md-3\" id=\"$id\">
               <h3>$name</h3>
               <img class=\"img-fluid\" src=\"$image\">
-              <p>$price</p>
+              <p class=\"price\">$price</p>
               <a href=\"detail.php?id=$id\">More detail</a>
             </div>";
           }

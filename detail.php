@@ -24,9 +24,11 @@ $product = $detail_class -> getProductById();
       <div class="row">
         <div class="col-md-6">
           <?php 
+          //if there are images
           if( isset($product['images']) ){
             //if there are more than 1 image, create carousel
-            if( count($product['images'] > 1 ) ){
+            if( count($product['images']) > 1 ){
+              echo count($product['images']);
               echo "<div id=\"detail-carousel\" class=\"carousel slide border\" data-ride=\"carousel\">";
               echo "<div class=\"carousel-inner\">";
                 $counter = 0;
@@ -51,7 +53,7 @@ $product = $detail_class -> getProductById();
               echo "</div>";
             }
             else{
-              $image = $product['images'];
+              $image = $product['images'][0];
               echo "<img src=\"images/products/products/$image\" class=\"img-fluid\">";
             }
             
