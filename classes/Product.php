@@ -1,4 +1,6 @@
 <?php
+namespace aitsyd;
+
 class Product extends Database{
   public $products = array();
   public function __construct(){

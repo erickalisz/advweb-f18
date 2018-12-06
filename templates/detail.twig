@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+  {% include 'includes/head.twig' %}
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h1 class="text-capitalize">{{product.name}}</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          {% set count = product.images | length %}
+          {% if count == 1 and count > 0 %}
+            {% for image in product.images %}
+              <img class="img-fluid" src="images/products/products/{{image}}">
+            {% endfor %}
+          {% elseif count > 1 and count > 0 %}
+            <div id="detail-carousel" class="carousel slide" data-ride="carousel">
+              <ol class="carousel-indicators">
+                {% for image in product.images %}
+                <li data-target="#detail-carousel" data-slide-to="{{loop.index0}}" class="{{(loop.index==1) ? 'active' : ''}}"></li>
+                {% endfor %}
+              </ol>
+              <div class="carousel-inner">
+                {% for image in product.images %}
+                  <div class="carousel-item {{(loop.index==1) ? 'active' : ''}}">
+                    <img class="d-block w-100 img-fluid" src="images/products/products/{{image}}">
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+        <div class="col-md-6">
+          <p class="price">{{ product.description }}</p>
+          <h4>{{ product.price }}</h4>
+          <form id="detail-form" method="get">
+            <input type="hidden" name="productid" value="{{product.product_id}}">
+            <div class="form-row">
+              <button class="col-3 btn btn-primary" value="wishlist">
+                <i class="fas fa-heart"></i>
+                Wish
+              </button>
+              <div class="col-4 btn-group">
+                <button type="button" class="btn btn-primary" name="minus">
+                  &minus;
+                </button>
+                <input type="number" class="form-control text-center" name="quantity" min="1" value="1">
+                <button type="button" class="btn btn-primary" name="plus">
+                  &plus;
+                </button>
+              </div>
+              
+              <button class="col-5 btn btn-primary" value="wishlist">
+                <i class="fas fa-shopping-cart"></i>
+                Buy for {{product.price}}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

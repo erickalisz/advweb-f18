@@ -1,4 +1,6 @@
 <?php
+namespace aitsyd;
+
 class ProductDetail extends Product{
   protected $product_id;
   public $product = array();
@@ -33,6 +35,7 @@ class ProductDetail extends Product{
           array_push( $tmp_array, $row );
         }
         //add the rows from the first row (row[0]) to the product array
+        $this -> product['product_id'] = $tmp_array[0]['product_id'];
         $this -> product['name'] = $tmp_array[0]['name'];
         $this -> product['price'] = $tmp_array[0]['price'];
         $this -> product['description'] = $tmp_array[0]['description'];

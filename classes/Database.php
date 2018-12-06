@@ -1,4 +1,5 @@
 <?php
+namespace aitsyd;
 class Database{
   protected $connection;
   protected function __construct(){
