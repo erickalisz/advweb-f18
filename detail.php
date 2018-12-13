@@ -10,6 +10,7 @@ use aitsyd\ProductDetail;
 
 $detail_class = new ProductDetail();
 $product = $detail_class -> getProductById();
+
 //set page_title to be capitalised
 $page_title = ucwords($product['name']);
 
