@@ -1,7 +1,12 @@
 <?php
 include('vendor/autoload.php');
 
+//generate navigation
+include('includes/navigation.inc.php');
+
+//generate product
 use aitsyd\ProductDetail;
+
 
 $detail_class = new ProductDetail();
 $product = $detail_class -> getProductById();
@@ -15,6 +20,13 @@ $twig = new Twig_Environment($loader, array(
 
 $template = $twig -> load('detail.twig');
 
-echo $template -> render( array('product' => $product, 'pagetitle' => $page_title));
+echo $template -> render( 
+        array(
+            'product' => $product, 
+            'pagetitle' => $page_title,
+            'pages' => $pages,
+            'currentPage' => $currentPage
+        )
+    );
 
 ?>

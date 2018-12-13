@@ -2,6 +2,9 @@
 <html>
   {% include 'includes/head.twig' %}
   <body>
+    
+    {% include 'includes/navigation.twig' %}
+    
     <div class="container">
       <div class="row">
         <div class="col">
@@ -17,11 +20,6 @@
             {% endfor %}
           {% elseif count > 1 and count > 0 %}
             <div id="detail-carousel" class="carousel slide" data-ride="carousel">
-              <ol class="carousel-indicators">
-                {% for image in product.images %}
-                <li data-target="#detail-carousel" data-slide-to="{{loop.index0}}" class="{{(loop.index==1) ? 'active' : ''}}"></li>
-                {% endfor %}
-              </ol>
               <div class="carousel-inner">
                 {% for image in product.images %}
                   <div class="carousel-item {{(loop.index==1) ? 'active' : ''}}">
@@ -29,37 +27,44 @@
                   </div>
                 {% endfor %}
               </div>
+              <div class="carousel-thumbnails mt-2">
+                {% for image in product.images %}
+                <a href="#" data-target="#detail-carousel" data-slide-to="{{loop.index0}}" class="{{(loop.index==1) ? 'active' : ''}}">
+                  <img class="img-fluid border border-secondary" style="max-width:60px;" src="images/products/products/{{image}}">
+                </a>
+                {% endfor %}
+              </div>
             </div>
           {% endif %}
         </div>
         <div class="col-md-6">
-          <p class="price">{{ product.description }}</p>
-          <h4>{{ product.price }}</h4>
+          <p>{{ product.description }}</p>
+          <h4 class="price" id="product-price">{{ product.price }}</h4>
           <form id="detail-form" method="get">
             <input type="hidden" name="productid" value="{{product.product_id}}">
-            <div class="form-row">
-              <button class="col-3 btn btn-primary" value="wishlist">
-                <i class="fas fa-heart"></i>
-                Wish
+            <div class="form-row flex-wrap">
+              <button class="col-12 col-md-1 btn btn-primary my-2 order-3 order-md-1 " value="wishlist">
+                <i class="fa fa-heart" aria-hidden="true"></i>
               </button>
-              <div class="col-4 btn-group">
-                <button type="button" class="btn btn-primary" name="minus">
+              <div class="col-6 col-md-5 btn-group my-2 order-1 order-md-2">
+                <button type="button" class="btn btn-primary w-25" name="minus">
                   &minus;
                 </button>
-                <input type="number" class="form-control text-center" name="quantity" min="1" value="1">
-                <button type="button" class="btn btn-primary" name="plus">
+                <input type="number" class="form-control text-center w-50" name="quantity" min="1" value="1">
+                <button type="button" class="btn btn-primary w-25" name="plus">
                   &plus;
                 </button>
               </div>
               
-              <button class="col-5 btn btn-primary" value="wishlist">
-                <i class="fas fa-shopping-cart"></i>
-                Buy for {{product.price}}
+              <button class="col-6 col-md-6 btn btn-primary my-2 order-2 order-md-3" value="wishlist">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                Buy for <span class="price" id="total">{{product.price}}</span>
               </button>
             </div>
           </form>
         </div>
       </div>
     </div>
+    <script src="js/detailPage.js"></script>
   </body>
 </html>
