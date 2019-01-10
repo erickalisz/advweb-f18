@@ -1,4 +1,6 @@
-<nav class="nav flex-column nav-pills">
+<nav class="nav flex-column nav-pills d-lg-block d-md-none d-none mt-2">
+  {% set active = (activeCategory == '') ? 'active' : '' %}
+  <a class="nav-link {{active}}" href="index.php">All Categories</a>
   {% for category in categories %}
     {% set active = ( category.category_id == activeCategory ) ? 'active' : '' %}
     <a class="nav-link {{active}}" href="index.php?category={{ category.category_id }}">
@@ -6,3 +8,27 @@
     </a>
   {% endfor %}
 </nav>
+<div class="dropdown d-lg-none d-block my-3">
+  <a class="btn btn-outline-secondary dropdown-toggle w-100" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    {% set activeName = '' %}
+    {% for category in categories %}
+     {% if category.category_id == activeCategory %}
+       {% set activeName = category.category_name %}
+     {% endif %}
+    {% endfor %}
+    {{ (activeName) ? activeName: 'All Categories' }}
+  </a>
+
+  <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuLink">
+    <nav class="nav flex-column nav-pills">
+      {% set active = (activeCategory == '') ? 'active' : '' %}
+      <a class="nav-link {{active}}" href="index.php">All Categories</a>
+      {% for category in categories %}
+        {% set active = ( category.category_id == activeCategory ) ? 'active' : '' %}
+        <a class="nav-link {{active}}" href="index.php?category={{ category.category_id }}">
+          {{ category.category_name }}
+        </a>
+      {% endfor %}
+    </nav>
+  </div>
+</div>

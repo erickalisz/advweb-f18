@@ -7,26 +7,36 @@
     
     <div class="container-fluid">
       <div class="row">
-        <form method="post" action="signup.php" class="col-md-4 offset-md-4">
-          <h3>Sign up for an account</h3>
+        <form method="post" action="signup.php" id="sign-up" class="col-md-4 offset-md-4" novalidate>
+          <h3 class="text-center my-4">Sign up for an account</h3>
           <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" name="username" class="form-control" id="username" placeholder="minimum 6 characters">
+            <input type="text" name="username" class="form-control" id="username" placeholder="minimum 6 characters" required>
+            <div class="invalid-feedback">
+              Minimum 6 alphanumeric characters and cannot contain spaces
+            </div>
           </div>
           <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" name="email" class="form-control" id="email" placeholder="alex@example.com">
+            <input type="email" name="email" class="form-control" id="email" placeholder="alex@example.com" required>
+            <div class="invalid-feedback">
+              Please enter a valid email address
+            </div>
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" name="password" class="form-control" id="password" placeholder="minimum 6 characters">
+            <input type="password" name="password" class="form-control" id="password" placeholder="minimum 6 characters" required>
+            <div class="invalid-feedback">
+              Minimum 8 characters
+            </div>
           </div>
           <div class="my-2 text-center">
-            <button class="btn btn-primary">Sign up</button>
+            <button class="btn btn-primary" type="submit">Sign up</button>
           </div>
-          <p>Already have an account? <a href="signin.php">Sign in</a></p>
+          <p class="text-center">Already have an account? <a href="signin.php">Sign in</a></p>
         </form>
       </div>
     </div>
+    <script src="js/signUp.js"></script>
   </body>
 </html>

@@ -7,15 +7,15 @@
     
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-2">
+        <div class="col-lg-2">
           {#for categories#}
           {% include 'includes/categories.twig'  %}
         </div>
-        <div class="col-md-10">
+        <div class="col-lg-10">
           {#for products#}
           <div class="row">
             {% for product in products %}
-              <div class="col-md-3">
+              <div class="col-lg-3 col-sm-6">
                   <h3>{{ product.name }}</h3>
                   <img class="img-fluid border border-secondary rounded" src="images/products/products/{{product.image_file_name}}">
                   <h5>{{ product.price }}</h5>
