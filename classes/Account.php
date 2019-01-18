@@ -12,9 +12,9 @@ class Account extends Database{
       $errors['username'] = $validuser['errors'];
     }
     //validate email
-    $validemail = filter_var($email,FILTER_VALIDATE_EMAIL);
+    $validemail = Validator::email( $email );
     if( $validemail == false ){
-      $errors['email'] = array('invalid email');
+      $errors['email'] = $validemail['errors'];
     }
     //validate password
     $validpassword = Validator::password($password);
@@ -42,9 +42,9 @@ class Account extends Database{
       if( $statement -> execute() ){
         //executed successfully
         $account_id = $this -> connection -> insert_id;
-        $_SESSION['account_id'] = $account_id;
-        $_SESSION['username'] = $username;
-        $_SESSION['email'] = $email;
+        $result['email'] = $email;
+        $result['username'] = $username;
+        $result['account_id'] = $account_id;
         $result['success'] = true;
       }
       elseif( $this -> connection -> errno == '1062'){
@@ -60,14 +60,14 @@ class Account extends Database{
           $result['success'] = false;
           $result['errors']['email'] = 'email already exists';
         }
-        return $result;
       }
+      return $result;
     }
   }
   
   public function signIn($user,$password){
     //check if $user is an email
-    if( filter_var($user,FILTER_VALIDATE_EMAIL) ){
+    if( filter_var( $user , FILTER_VALIDATE_EMAIL ) ){
       //user is using email address
       $query = 'SELECT account_id,email,username,password 
       FROM account 
@@ -79,6 +79,7 @@ class Account extends Database{
       FROM account
       WHERE username=? AND active=1';
     }
+
     $statement = $this -> connection -> prepare($query);
     $statement -> bind_param('s', $user );
     $statement -> execute();
@@ -89,6 +90,7 @@ class Account extends Database{
     if( $result -> num_rows == 0 ){
       //account does not exist
       $response['success'] = false;
+      $response['user'] = $user;
       $response['error'] = 'account does not exist';
     }
     else{
@@ -101,10 +103,14 @@ class Account extends Database{
       if( password_verify($password,$hash) ){
         //password matches hash
         $response['success'] = true;
+        $response['email'] = $email;
+        $response['username'] = $username;
+        $response['account_id'] = $account_id;
       }
       else{
         //password does not match
         $response['success'] = false;
+        $response['user'] = $user;
         $response['error'] = 'wrong password';
       }
     }
