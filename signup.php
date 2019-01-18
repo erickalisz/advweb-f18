@@ -35,7 +35,8 @@ $template = $twig -> load('signup.twig');
 echo $template -> render( array(
       'pages' => $pages,
       'pagetitle' => $page_title,
-      'currentPage' => $currentPage
+      'currentPage' => $currentPage,
+      'response' => $signup
       )
     );
 ?>

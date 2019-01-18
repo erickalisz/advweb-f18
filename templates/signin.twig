@@ -11,9 +11,11 @@
           <h3 class="text-center my-4">Sign in to your account</h3>
           <div class="form-group">
             <label for="username">Username or Email</label>
+            
             {% if response.user %}
               {% set username = response.user %}
             {% endif %}
+            
             <input type="text" name="user" class="form-control" id="username" placeholder="username or email" required value="{{username}}">
           </div>
           
@@ -21,11 +23,13 @@
             <label for="password">Password</label>
             <input type="password" name="password" class="form-control" id="password" placeholder="your password" required>
           </div>
+          
           {% if response.error %}
-          <div class="feeback text-danger">
-            {{response.error}}
-          </div>
+            <div class="feeback text-danger">
+              {{response.error}}
+            </div>
           {% endif %}
+          
           <div class="my-2 text-center">
             <button class="btn btn-primary" type="submit">Sign In</button>
           </div>
