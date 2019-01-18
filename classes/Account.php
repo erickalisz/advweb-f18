@@ -5,7 +5,9 @@ class Account extends Database{
     parent::__construct();
   }
   public function signUp($username,$email,$password){
+    // array to store errors
     $errors = array();
+    // using the Validator class
     //validate username
     $validuser = Validator::username( $username );
     if( $validuser['success'] == false ){
@@ -22,13 +24,13 @@ class Account extends Database{
       $errors['password'] = $validpassword['errors'];
     }
     //array for result
-    $result = array();
+    $response = array();
     //check if there are errors
     if( count($errors) > 0 ){
       //signup not successful
-      $result['success'] = false;
-      $result['errors'] = $errors;
-      return $result;
+      $response['success'] = false;
+      $response['errors'] = $errors;
+      return $response;
     }
     else{
       //no errors
@@ -42,26 +44,26 @@ class Account extends Database{
       if( $statement -> execute() ){
         //executed successfully
         $account_id = $this -> connection -> insert_id;
-        $result['email'] = $email;
-        $result['username'] = $username;
-        $result['account_id'] = $account_id;
-        $result['success'] = true;
+        $response['email'] = $email;
+        $response['username'] = $username;
+        $response['account_id'] = $account_id;
+        $response['success'] = true;
       }
       elseif( $this -> connection -> errno == '1062'){
         //username or email already exists
         //check if error relates to username
         if( strpos( $this -> connection -> error, 'username') > 0 ){
           //username already exists
-          $result['success'] = false;
-          $result['errors']['username'] = 'username already exists';
+          $response['success'] = false;
+          $response['errors']['username'] = 'username already exists';
         }
         elseif( strpos( $this -> connection -> error, 'email') > 0 ){
           //email already exists
-          $result['success'] = false;
-          $result['errors']['email'] = 'email already exists';
+          $response['success'] = false;
+          $response['errors']['email'] = 'email already exists';
         }
       }
-      return $result;
+      return $response;
     }
   }
   
