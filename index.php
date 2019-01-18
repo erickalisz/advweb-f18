@@ -1,5 +1,7 @@
 <?php
 include('vendor/autoload.php');
+//start session
+session_start();
 
 //generate navigation
 include('includes/navigation.inc.php');
@@ -30,7 +32,8 @@ echo $template -> render( array(
       'pagetitle' => $page_title,
       'currentPage' => $currentPage,
       'categories' => $categories,
-      'activeCategory' => $active_category
+      'activeCategory' => $active_category,
+      'user' => $user
       )
     );
 
