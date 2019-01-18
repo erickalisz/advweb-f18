@@ -14,7 +14,14 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' ){
   
   //create instance of account class
   $account = new Account();
-  $signup = $account -> signIn( $user, $password );
+  $signin = $account -> signIn( $username, $password );
+  if( $signin['success'] == true ){
+    $_SESSION['email'] = $signin['email'];
+    $_SESSION['username'] = $signin['username'];
+    $_SESSION['account_id'] = $signin['account_id'];
+    //redirect user to home page
+    header("location:/");
+  }
 }
 
 //generate navigation
@@ -30,7 +37,9 @@ $template = $twig -> load('signin.twig');
 echo $template -> render( array(
       'pages' => $pages,
       'pagetitle' => $page_title,
-      'currentPage' => $currentPage
+      'currentPage' => $currentPage,
+      'user' => $user,
+      'response' => $signin
       )
     );
 ?>

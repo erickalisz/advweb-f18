@@ -16,7 +16,10 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' ){
   //create instance of account class
   $account = new Account();
   $signup = $account -> signUp( $username, $email, $password );
-  print_r($signup);
+  if( $signup['success'] == true ){
+    //signup is successful
+    //create session variables for user
+  }
 }
 
 //generate navigation
