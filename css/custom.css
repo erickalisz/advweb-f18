@@ -2,3 +2,6 @@
     content: '$';
     margin-right:0.2em;
 }
+.product-name{
+    min-height: 5rem;
+}

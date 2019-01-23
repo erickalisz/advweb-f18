@@ -13,18 +13,30 @@ class Categories extends Database{
     $statement -> execute();
     $result = $statement -> get_result();
     if( $result -> num_rows > 0 ){
-      $categories = array();
+      $items = array();
       while( $row = $result -> fetch_assoc() ){
-        array_push( $categories, $row );
+        $category = array('id' => $row['category_id'],'name' => $row['category_name']);
+        array_push( $items , $category );
       }
-      return $categories;
+      $this -> categories['items'] = $items;
+      $this -> categories['active'] = $this -> getActive();
+      return $this -> categories;
     }
     else{
       return null;
     }
   }
   public function getActive(){
-    return ($_GET['category']) ? $_GET['category'] : '';
+    //if category validates as an integer
+    if( isset($_GET['category']) 
+      && filter_var($_GET['category'],FILTER_VALIDATE_INT) )
+    {
+      $category = $_GET['category'];
+    }
+    else{
+      $category = '';
+    }
+    return $category;
   }
 }
 ?>

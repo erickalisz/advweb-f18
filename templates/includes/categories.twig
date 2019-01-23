@@ -1,17 +1,23 @@
-<nav class="nav flex-column nav-pills d-lg-block d-md-none d-none mt-2">
-  {% set active = (activeCategory == '') ? 'active' : '' %}
-  <a class="nav-link {{active}}" href="index.php">All Categories</a>
-  {% for category in categories %}
-    {% set active = ( category.category_id == activeCategory ) ? 'active' : '' %}
-    <a class="nav-link {{active}}" href="index.php?category={{ category.category_id }}">
-      {{ category.category_name }}
+<h6 class="mt-2">Categories</h6>
+
+<nav class="nav nav-pills flex-column categories-nav d-none d-md-flex">
+  
+  {% set active = (categories.active == '') ? 'active' : '' %}
+  <a class="nav-link {{active}}" href="{{currentPage}}?page=1">All categories</a>
+  
+  {% for category in categories.items %}
+    {% set active = (category.id == categories.active) ? 'active' : '' %}
+    <a class="nav-link text-capitalize {{active}} " href="{{currentPage}}?category={{category.id}}&page=1">
+      {{category.name}}
     </a>
   {% endfor %}
 </nav>
+
+{#category menu for small devices#}
 <div class="dropdown d-lg-none d-block my-3">
   <a class="btn btn-outline-secondary dropdown-toggle w-100" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     {% set activeName = '' %}
-    {% for category in categories %}
+    {% for category in categories.items %}
      {% if category.category_id == activeCategory %}
        {% set activeName = category.category_name %}
      {% endif %}
@@ -21,12 +27,12 @@
 
   <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuLink">
     <nav class="nav flex-column nav-pills">
-      {% set active = (activeCategory == '') ? 'active' : '' %}
+      {% set active = (categories.active == '') ? 'active' : '' %}
       <a class="nav-link {{active}}" href="index.php">All Categories</a>
-      {% for category in categories %}
-        {% set active = ( category.category_id == activeCategory ) ? 'active' : '' %}
+      {% for category in categories.items %}
+        {% set active = (category.id == categories.active) ? 'active' : '' %}
         <a class="nav-link {{active}}" href="index.php?category={{ category.category_id }}">
-          {{ category.category_name }}
+          {{ category.name }}
         </a>
       {% endfor %}
     </nav>
