@@ -1,5 +1,6 @@
 <?php
 namespace aitsyd;
+
 class Page{
   public $props = array();
   private $title = 'untitled';

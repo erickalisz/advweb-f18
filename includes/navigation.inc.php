@@ -1,9 +1,11 @@
 <?php
 use aitsyd\Navigation;
 use aitsyd\Page;
+
 $nav = new Navigation();
 $pages = $nav -> pages;
 $currentPage = Page::getName();
+
 if( isset($_SESSION['email']) ){
   $user = array();
   $user['email'] = $_SESSION['email'];
@@ -13,4 +15,5 @@ if( isset($_SESSION['email']) ){
 else{
   $user = null;
 }
+
 ?>

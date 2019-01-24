@@ -81,6 +81,7 @@ class Account extends Database{
       FROM account
       WHERE username=? AND active=1';
     }
+
     $statement = $this -> connection -> prepare($query);
     $statement -> bind_param('s', $user );
     $statement -> execute();

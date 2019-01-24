@@ -1,5 +1,6 @@
 <?php
 namespace aitsyd;
+
 class ProductDetail extends Product{
   protected $product_id;
   public $product = array();
