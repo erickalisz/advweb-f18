@@ -84,7 +84,7 @@ class Product extends Database{
     }
   }
   
-  public function getProductsInCategory(){
+  protected function getProductsInCategory(){
     //different query for getting product in category
     $query = "SELECT 
     @pid := product.product_id AS product_id,
@@ -141,7 +141,7 @@ class Product extends Database{
     }
   }
   
-  private function getProductTotal($query){
+  protected function getProductTotal($query){
     //return the total number of products
     //call this function before applying pagination
     $statement = $this -> connection -> prepare($query);
